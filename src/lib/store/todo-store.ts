@@ -1,25 +1,37 @@
+import { format } from 'date-fns';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 export interface TodoProps {
   id: string;
-  content: string;
+  content: string | undefined;
   isCompleted: boolean;
   createdAt: string;
+  updatedAt: string
 }
 interface TodoStore {
   data: TodoProps[];
+  isEdit: boolean;
+  setIsEdit: (bool: boolean) => void;
   addTodo: (todo: TodoProps) => void;
   removeTodo: (id: string) => void;
   clearAllTodo: () => void;
   onComplete: (id: string) => void;
-  onEdit: ({ content, id }: { content: string; id: string }) => void;
+  onEdit: ({
+    content,
+    id,
+  }: {
+    content?: string | undefined;
+    id: string | undefined;
+  }) => void;
 }
 
 export const useTodo = create<TodoStore>()(
   persist(
     (set) => ({
       data: [],
+      isEdit: false,
+      setIsEdit: (bool) => set({ isEdit: bool }),
       addTodo: (todos: TodoProps) =>
         set((state) => ({ data: [...state.data, todos] })),
       removeTodo: (id) =>
@@ -44,9 +56,10 @@ export const useTodo = create<TodoStore>()(
               return {
                 ...item,
                 content: content,
+                updatedAt:  format(new Date(), 'd MMM yyyy, HH:mm')
               };
             }
-            return item
+            return item;
           }),
         })),
     }),

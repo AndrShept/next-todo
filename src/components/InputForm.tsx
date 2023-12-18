@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useId } from 'react';
+import React from 'react';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,26 +22,42 @@ import { ActionTooltip } from './ActionTooltip';
 import { v4 as uuidv4 } from 'uuid';
 
 const formSchema = z.object({
-  content: z.string().min(3),
+  content: z.string().min(3).optional(),
 });
 
-export const InputForm = () => {
+interface InputFormProps {
+  type: 'submit' | 'edit';
+  id?: string;
+  setIsEdit?: (isClose: boolean) => void;
+  content?: string;
+}
+
+export const InputForm = ({ type, id, setIsEdit, content }: InputFormProps) => {
   const form = useForm({
     defaultValues: {
-      content: '',
+      content: '' || content,
     },
     resolver: zodResolver(formSchema),
   });
-  const {  addTodo } = useTodo();
+  const { addTodo, onEdit } = useTodo();
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    addTodo({
-      id: uuidv4(),
-      content: values.content,
-      createdAt: format(new Date(), 'd MMM yyyy, HH:mm'),
-      isCompleted: false,
-    });
-    form.reset();
+    if (type === 'submit' && values.content) {
+      addTodo({
+        id: uuidv4(),
+        content: values.content,
+        createdAt: format(new Date(), 'd MMM yyyy, HH:mm'),
+        isCompleted: false,
+        updatedAt: '',
+      });
+      form.reset({ content: '' });
+    }
+    if (type === 'edit') {
+      onEdit({ ...values, id });
+      if (setIsEdit) {
+        setIsEdit(false);
+      }
+    }
   };
 
   return (
@@ -57,7 +73,9 @@ export const InputForm = () => {
                 <div className='relative'>
                   <Input
                     className={'pr-8'}
-                    placeholder='Enter todos...'
+                    placeholder={
+                      type === 'submit' ? 'Enter todos...' : 'edit todo'
+                    }
                     {...field}
                   />
                   <Button
@@ -78,14 +96,16 @@ export const InputForm = () => {
               </FormControl>
 
               <FormDescription>
-                Press ENTER add todo
+                {type === 'submit'
+                  ? ' Press ENTER add todo'
+                  : 'Press ENTER edit todo'}
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button className='' type='submit'>
-          Create
+          {type === 'submit' ? 'Create' : 'Save'}
         </Button>
       </form>
     </Form>
