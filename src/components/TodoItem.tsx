@@ -17,9 +17,6 @@ export const TodoItem = ({ item }: { item: TodoProps }) => {
 
   return (
     <>
-      <p className='text-muted-foreground text-xs'>
-        {item.updatedAt ? item.updatedAt + ' (update)' : item.createdAt}
-      </p>
       {!isEdit && (
         <div
           onClick={() => onComplete(item.id)}
@@ -60,6 +57,9 @@ export const TodoItem = ({ item }: { item: TodoProps }) => {
           type='edit'
         />
       )}
+      <p className='text-muted-foreground text-xs'>
+        {item.updatedAt ? item.updatedAt + ' (update)' : item.createdAt}
+      </p>
     </>
   );
 };

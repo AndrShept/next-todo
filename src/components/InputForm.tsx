@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
@@ -79,6 +79,10 @@ export const InputForm = ({ type, id, setIsEdit, content }: InputFormProps) => {
                     {...field}
                   />
                   <Button
+                    onClick={() => {
+                      form.setValue('content', '');
+                      form.setFocus('content');
+                    }}
                     disabled={!field.value}
                     type='reset'
                     variant={'ghost'}
@@ -86,10 +90,7 @@ export const InputForm = ({ type, id, setIsEdit, content }: InputFormProps) => {
                     className='absolute right-2 top-2 h-6 w-6 '
                   >
                     <ActionTooltip label='clear input'>
-                      <X
-                        size={18}
-                        onClick={() => form.setValue('content', '')}
-                      />
+                      <X size={18} />
                     </ActionTooltip>
                   </Button>
                 </div>

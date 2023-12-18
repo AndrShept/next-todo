@@ -29,7 +29,7 @@ export const SearchInput = () => {
     router.push(url);
   }, [router, url]);
   return (
-    <div className='relative mb-4 mx-auto max-w-lg'>
+    <div className='relative my-4 mx-auto max-w-lg'>
       <Search
         size={20}
         className='absolute text-muted-foreground left-2 top-[10px] '
@@ -45,7 +45,9 @@ export const SearchInput = () => {
         variant={'ghost'}
         size={'icon'}
         className='absolute text-muted-foreground right-2 top-[7px] h-7 w-7 '
-        onClick={() => setSearch('')}
+        onClick={() => {
+          setSearch('');
+        }}
         disabled={!search.length}
       >
         <ActionTooltip label='clear'>
