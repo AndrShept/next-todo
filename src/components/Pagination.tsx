@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import qs from 'query-string';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { usePagination } from '@/lib/store/page-store';
+import { usePageStore } from '@/lib/store/page-store';
 
 export const Pagination = () => {
   const pathname = usePathname();
@@ -18,7 +18,7 @@ export const Pagination = () => {
     decrementQueryPage,
     incrementQueryPage,
     amountOnPage,
-  } = usePagination();
+  } = usePageStore();
 
   const pages = [...Array(Math.ceil(data.length / amountOnPage))].map(
     (page, idx) => (page = idx + 1)

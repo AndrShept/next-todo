@@ -8,11 +8,11 @@ import { useTodo } from '@/lib/store/todo-store';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import qs from 'query-string';
-import { usePagination } from '@/lib/store/page-store';
+import { usePageStore } from '@/lib/store/page-store';
 
 const TodoPage = () => {
   const { data, clearAllTodo } = useTodo();
-  const { queryPage: startPage, amountOnPage } = usePagination();
+  const { queryPage: startPage, amountOnPage } = usePageStore();
   const [isMount, setIsMount] = useState(false);
   const searchParams = useSearchParams();
   const search = searchParams.get('search');
@@ -34,8 +34,8 @@ const TodoPage = () => {
   let startIdx;
   let endIdx;
   if (queryPage) {
-    startIdx = (+queryPage - 1) * amountOnPage
-    endIdx = startIdx + amountOnPage
+    startIdx = (+queryPage - 1) * amountOnPage;
+    endIdx = startIdx + amountOnPage;
   }
 
   useEffect(() => {

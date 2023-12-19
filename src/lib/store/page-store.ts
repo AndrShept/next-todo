@@ -9,7 +9,7 @@ interface PageStoreProps {
   decrementQueryPage : ()=> void
 }
 
-export const usePagination = create<PageStoreProps>()(
+export const usePageStore = create<PageStoreProps>()(
   persist(
     (set) => ({
       queryPage: null,
