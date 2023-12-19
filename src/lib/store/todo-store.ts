@@ -8,7 +8,6 @@ export interface TodoProps {
   isCompleted: boolean;
   createdAt: string;
   updatedAt: string;
-
 }
 interface TodoStore {
   data: TodoProps[];
@@ -35,7 +34,7 @@ export const useTodo = create<TodoStore>()(
       isEdit: false,
       setIsEdit: (bool) => set({ isEdit: bool }),
       addTodo: (todos: TodoProps) =>
-        set((state) => ({ data: [...state.data, todos] })),
+        set((state) => ({ data: [todos, ...state.data] })),
       removeTodo: (id) =>
         set((state) => ({ data: state.data.filter((todo) => todo.id !== id) })),
       clearAllTodo: () => set({ data: [] }),

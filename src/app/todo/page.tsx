@@ -22,6 +22,8 @@ const TodoPage = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+
+
   const url = qs.stringifyUrl(
     {
       url: pathname,
@@ -70,11 +72,11 @@ const TodoPage = () => {
           <SearchInput />
         </div>
 
-        <div className=' flex  flex-col   gap-4 p-6 rounded-md'>
+        <div className=' flex  flex-col-reverse  gap-4 p-6 rounded-md'>
           {data.length > 0 &&
             (searchData ? searchData : data)
               .map((item) => <TodoItem key={item.id} item={item} />)
-              .slice(startIdx, endIdx)}
+              .slice(startIdx, endIdx).toReversed()}
 
           {data.length === 0 && (
             <p className='text-muted-foreground  text-center '>

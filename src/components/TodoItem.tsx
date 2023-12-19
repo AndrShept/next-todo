@@ -24,7 +24,7 @@ export const TodoItem = ({ item }: { item: TodoProps }) => {
         <div
           onClick={() => onComplete(item.id)}
           className={cn(
-            'p-3 gap-2 flex  border cursor-pointer rounded-md hover:bg-secondary/60 transition',
+            'p-3 gap-2 flex   border cursor-pointer rounded-md hover:bg-secondary/60 transition',
             {
               'bg-green-400 hover:bg-green-500/80 border-green-400 text-white':
                 item.isCompleted,
