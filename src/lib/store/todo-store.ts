@@ -7,10 +7,12 @@ export interface TodoProps {
   content: string | undefined;
   isCompleted: boolean;
   createdAt: string;
-  updatedAt: string
+  updatedAt: string;
+
 }
 interface TodoStore {
   data: TodoProps[];
+
   isEdit: boolean;
   setIsEdit: (bool: boolean) => void;
   addTodo: (todo: TodoProps) => void;
@@ -56,7 +58,7 @@ export const useTodo = create<TodoStore>()(
               return {
                 ...item,
                 content: content,
-                updatedAt:  format(new Date(), 'd MMM yyyy, HH:mm')
+                updatedAt: format(new Date(), 'd MMM yyyy, HH:mm'),
               };
             }
             return item;

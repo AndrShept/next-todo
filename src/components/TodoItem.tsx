@@ -16,12 +16,15 @@ export const TodoItem = ({ item }: { item: TodoProps }) => {
   };
 
   return (
-    <>
+    <div>
+      <p className='text-muted-foreground text-xs'>
+        {item.updatedAt ? item.updatedAt + ' (update)' : item.createdAt}
+      </p>
       {!isEdit && (
         <div
           onClick={() => onComplete(item.id)}
           className={cn(
-            'p-3 gap-2 flex border cursor-pointer rounded-md hover:bg-secondary/60 transition',
+            'p-3 gap-2 flex  border cursor-pointer rounded-md hover:bg-secondary/60 transition',
             {
               'bg-green-400 hover:bg-green-500/80 border-green-400 text-white':
                 item.isCompleted,
@@ -57,9 +60,6 @@ export const TodoItem = ({ item }: { item: TodoProps }) => {
           type='edit'
         />
       )}
-      <p className='text-muted-foreground text-xs'>
-        {item.updatedAt ? item.updatedAt + ' (update)' : item.createdAt}
-      </p>
-    </>
+    </div>
   );
 };

@@ -10,7 +10,7 @@ export const SearchInput = () => {
   const [search, setSearch] = useState('');
   const router = useRouter();
   const pathname = usePathname();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const url = qs.stringifyUrl(
     {
       url: pathname,
@@ -21,12 +21,14 @@ export const SearchInput = () => {
     { skipNull: true, skipEmptyString: true }
   );
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    startTransition(() => {
-      setSearch(e.target.value);
-    });
+    // startTransition(() => {
+    // });
+    setSearch(e.target.value);
   };
   useEffect(() => {
-    router.push(url);
+    setTimeout(() => {
+      router.push(url);
+    }, 130);
   }, [router, url]);
   return (
     <div className='relative my-4 mx-auto max-w-lg'>

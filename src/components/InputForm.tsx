@@ -20,6 +20,7 @@ import { format } from 'date-fns';
 import { X } from 'lucide-react';
 import { ActionTooltip } from './ActionTooltip';
 import { v4 as uuidv4 } from 'uuid';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   content: z.string().min(3).optional(),
@@ -72,7 +73,7 @@ export const InputForm = ({ type, id, setIsEdit, content }: InputFormProps) => {
               <FormControl>
                 <div className='relative'>
                   <Input
-                    className={'pr-8'}
+                    className={cn('pr-8', type==='edit' && 'focus-visible:ring-0 focus-visible:ring-offset-0' )}
                     placeholder={
                       type === 'submit' ? 'Enter todos...' : 'edit todo'
                     }
