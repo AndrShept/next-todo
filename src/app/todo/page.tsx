@@ -52,7 +52,7 @@ const TodoPage = () => {
     : data;
 
   return (
-    <div className=' flex-1 h-full flex  flex-col  sm:ml-[200px]  sm:p-4 p-2 border-r  '>
+    <div className='flex flex-col flex-1'>
       <h1 className='text-center font-semibold text-2xl mb-5 '>My Todo</h1>
 
       <div className=' sm:w-[470px] w-[350px] mx-auto '>

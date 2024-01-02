@@ -10,12 +10,19 @@ const sideBarLink = [
     name: 'Todo',
     href: '/todo',
   },
+  {
+    id: '2',
+    name: 'Test',
+    href: '/test',
+  },
+
+  
 ];
 
 export const Sidebar = () => {
   const pathname = usePathname();
   return (
-    <section className=' flex flex-col'>
+    <section className=' flex flex-col gap-y-1'>
       {sideBarLink.map((item) => (
         <Link
           key={item.id}

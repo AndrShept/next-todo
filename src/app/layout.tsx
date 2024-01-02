@@ -23,9 +23,9 @@ export default function RootLayout({
             <Sidebar />
           </div>
 
-      
+          <div className=' flex-1 h-full flex  flex-col  sm:ml-[200px]  sm:p-4 p-2 border-r  '>
             {children}
-          
+          </div>
         </main>
       </body>
     </html>
