@@ -17,7 +17,7 @@ interface TodoStore {
   addTodo: (todo: TodoProps) => void;
   removeTodo: (id: string) => void;
   clearAllTodo: () => void;
-  onComplete: (id: string) => void;
+  onComplete: (id: string) => void; 
   onEdit: ({
     content,
     id,

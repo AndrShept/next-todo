@@ -12,7 +12,7 @@ import { usePageStore } from '@/lib/store/page-store';
 
 const TodoPage = () => {
   const { data, clearAllTodo } = useTodo();
-  const { queryPage: startPage, amountOnPage } = usePageStore();
+  const { queryPage: startPage, amountOnPage, setQueryPage } = usePageStore();
   const [isMount, setIsMount] = useState(false);
   const searchParams = useSearchParams();
   const search = searchParams.get('search');
@@ -62,9 +62,11 @@ const TodoPage = () => {
             onClick={() => {
               if (confirm('DELETE ALL ?')) {
                 clearAllTodo();
+                setQueryPage(1)
+
               }
             }}
-            variant={'secondary'}
+            variant={'destructive'}
             className='w-full'
           >
             Clear All
@@ -91,7 +93,7 @@ const TodoPage = () => {
         </div>
       </div>
 
-      {!search && <Pagination />}
+      {!search && data.length !== 0 && <Pagination />}
     </div>
   );
 };
