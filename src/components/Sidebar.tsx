@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import React, { ElementRef, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { useMediaQuery } from 'usehooks-ts';
-
+import { useOnClickOutside } from 'usehooks-ts';
 const sideBarLink = [
   {
     id: '1',
@@ -21,7 +21,8 @@ const sideBarLink = [
 ];
 
 export const Sidebar = () => {
-  const isMobile = useMediaQuery('(min-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const sidebarRef = useRef<ElementRef<'section'>>(null);
@@ -55,17 +56,23 @@ export const Sidebar = () => {
       }, 300);
     }
   };
-  console.log(isMobile);
+  const handleClickOutside = () => {
+    if (isMobile) {
+      collapse();
+    }
+  };
+
+  useOnClickOutside(sidebarRef, handleClickOutside);
   return (
     <>
       <section
         ref={sidebarRef}
         className={cn(
-          ' flex flex-col gap-y-1 border  w-[200px] sm:p-4 p-2   group ',
+          ' flex flex-col gap-y-1 border  w-[200px] sm:p-4 p-2  group ',
           {
-            'transition-all ease-in-out duration-300': isCollapsed,
-            'sticky': isMobile,
-            'absolute z-20 bg-secondary inset-y-0': !isMobile,
+            'transition-all ease-in-out duration-300 ': isCollapsed,
+            'sticky': !isMobile,
+            'absolute z-20 bg-secondary inset-y-0': isMobile,
           }
         )}
       >
@@ -77,7 +84,8 @@ export const Sidebar = () => {
                 'text-muted-foreground hover:text-primary bg-secondary/60  p-2 rounded-md transition cursor-pointer w-full ',
                 {
                   'text-primary bg-secondary': pathname === item.href,
-                  'text-secondary bg-primary/40 hover:bg-primary/20 hover:text-secondary ': pathname === item.href && !isMobile,
+                  'text-secondary bg-primary/40 hover:bg-primary/20 hover:text-secondary ':
+                    pathname === item.href && isMobile,
                 }
               )}
               href={item.href}
