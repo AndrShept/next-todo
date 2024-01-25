@@ -30,14 +30,6 @@ const formSchema = z.object({
 });
 
 export const FormTodos = () => {
-  const { isPending, onChange } = useImageUrl();
-  const {
-    mutate,
-    isError,
-    isPending: isMutatePending,
-    variables,
-  } = useCreateTodos();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,6 +37,9 @@ export const FormTodos = () => {
       imageUrl: '',
     },
   });
+
+  const { isPending, onChange } = useImageUrl();
+  const { mutate, isError, isPending: isMutatePending } = useCreateTodos();
 
   const isLoading = form.formState.isSubmitting;
   const imageUrl = form.getValues().imageUrl;
@@ -107,7 +102,6 @@ export const FormTodos = () => {
           Create
         </Button>
       </form>
-    
     </Form>
   );
 };
