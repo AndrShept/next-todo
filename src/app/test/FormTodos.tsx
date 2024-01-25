@@ -2,11 +2,10 @@
 import { ActionTooltip } from '@/components/ActionTooltip';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Settings } from 'lucide-react';
-import React, { useRef, useTransition } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
-import type { PutBlobResult } from '@vercel/blob';
 import {
   Form,
   FormControl,
@@ -94,15 +93,15 @@ export const FormTodos = () => {
             </FormItem>
           )}
         />
-        {isPending && <Spinner className='h-6 w-6' />}
+        {isPending && <Spinner className='h-6 w-6 mx-auto' />}
         {imageUrl && (
-          <div className='h-20 w-20 relative border'>
+          <div className='h-20 w-20 relative border mx-auto'>
             <Image fill src={imageUrl} alt='image' className='object-cover' />
           </div>
         )}
         <Button
           className='w-full'
-          disabled={isLoading || isMutatePending}
+          disabled={isLoading || isMutatePending || isPending}
           type='submit'
         >
           Create

@@ -43,15 +43,14 @@ export const useGetTodos = () => {
 };
 
 export const useCreateTodos = () => {
+
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ['addTodos'],
     mutationFn: todoServices.createTodo,
     onSettled: (data) => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
-      toast(`Todo has been created ${data?.created_at}`, {
-       
-      });
+      toast(`Todo has been created ${data?.created_at}`, {});
     },
 
     // onSuccess: () => {
@@ -69,6 +68,5 @@ export const useDeleteTodos = () => {
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
-
   });
 };

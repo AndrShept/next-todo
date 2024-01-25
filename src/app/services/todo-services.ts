@@ -13,6 +13,7 @@ export const todoServices = {
     return res.json();
   },
   createTodo: async (todo: ITodo): Promise<Todo> => {
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     const res = await fetch('/api/todo', {
       method: 'POST',
       body: JSON.stringify(todo),
