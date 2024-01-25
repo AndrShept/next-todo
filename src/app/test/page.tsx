@@ -1,51 +1,18 @@
-'use client'
-import { ActionTooltip } from '@/components/ActionTooltip';
-import { Button } from '@/components/ui/button';
-import { Settings } from 'lucide-react';
 import React from 'react';
 
-const page = () => {
+import { FormTodos } from './FormTodos';
+import { TodosList } from './TodosList';
+
+const TestPage = () => {
+  
   return (
-    
-    <div>
-        <li></li>
-        <ul></ul>
-        div
-        <h1></h1>
-        <h2></h2>
-        <p></p>
-        <span></span>
-        <section></section>
-        <main></main>
-        <header></header>
-        <footer></footer>
-        <aside></aside>
-        <article></article>
-        <form></form>
-        <input/>
-        <button></button>
-        
+    <section className='flex flex-col h-full gap-8 flex-1 '>
+      <FormTodos />
 
-
-      <div>
-            
-        <ActionTooltip label='Settings'>
-          <Button
-          onClick={() => alert( '!!!' )}
-            variant={'ghost'}
-            size={'icon'}
-          >
-            <Settings />
-          </Button>
-        </ActionTooltip>
-
-        <p>dasdsadsa</p>
-        <div>
-          <h1 className='font-bold text-xl text-cyan-600'>HELLO</h1>
-        </div>
-      </div>
-    </div>
+      
+      <TodosList />
+    </section>
   );
 };
 
-export default page;
+export default TestPage;
