@@ -51,13 +51,16 @@ export const FormTodos = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-4 mx-auto max-w-[600px]'
+      >
         <FormField
           control={form.control}
           name='title'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>title</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input placeholder='title todo' {...field} />
               </FormControl>
@@ -73,7 +76,6 @@ export const FormTodos = () => {
           name='imageUrl'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
               <FormControl>
                 <div>
                   <Label htmlFor='picture'>Picture</Label>
@@ -98,7 +100,11 @@ export const FormTodos = () => {
             <Image fill src={imageUrl} alt='image' className='object-cover' />
           </div>
         )}
-        <Button disabled={isLoading || isMutatePending} type='submit'>
+        <Button
+          className='w-full'
+          disabled={isLoading || isMutatePending}
+          type='submit'
+        >
           Create
         </Button>
       </form>

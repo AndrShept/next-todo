@@ -43,7 +43,7 @@ export const TodosList = () => {
   if (status === 'error') return 'An error has occurred: ' + error?.message;
 
   return (
-    <ul className='mx-auto flex-1 flex flex-col gap-4'>
+    <ul className='mx-auto flex-1 flex flex-col gap-4 mt-6'>
       {todos?.map((todo) => (
         <Card
           className='flex min-w-[350px] max-w-[400px]  justify-between items-center hover:shadow-lg transition cursor-pointer'
