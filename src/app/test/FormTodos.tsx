@@ -25,7 +25,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
-  imageUrl: z.string().min(2).max(200),
+  imageUrl: z.string().min(2, 'File img* required').max(200),
 });
 
 export const FormTodos = () => {
@@ -59,7 +59,7 @@ export const FormTodos = () => {
           name='title'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <Label>Title</Label>
               <FormControl>
                 <Input placeholder='title todo' {...field} />
               </FormControl>

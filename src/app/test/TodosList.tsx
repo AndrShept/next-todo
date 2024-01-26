@@ -21,8 +21,8 @@ export const TodosList = ({ todo }: { todo: Todo }) => {
 
   return (
     <>
-      <Card className='flex min-w-[350px] max-w-[400px]  justify-between items-center hover:shadow-lg transition cursor-pointer'>
-        <CardHeader>
+      <article className='flex min-w-[350px] max-w-[350px]   sm:gap-4  gap-3 px-6 py-10 border rounded-lg justify-between items-center hover:shadow-lg  hover:scale-y-105 transition cursor-pointer'>
+        <section>
           <div className='h-10 w-10 relative'>
             <Image
               className='object-cover'
@@ -31,12 +31,12 @@ export const TodosList = ({ todo }: { todo: Todo }) => {
               src={todo.imageUrl || ''}
             />
           </div>
-        </CardHeader>
-        <CardContent className='flex-1 '>
+        </section>
+        <section className='flex-1 text-sm'>
           {isEdit && <Input />}
           {!isEdit && <p className=' break-all'>{todo.title}</p>}
-        </CardContent>
-        <CardFooter>
+        </section>
+        <section>
           <Button onClick={() => mutate(todo.id.toString())} className=''>
             Delete
           </Button>
@@ -49,8 +49,9 @@ export const TodosList = ({ todo }: { todo: Todo }) => {
           >
             Edit
           </Button>
-        </CardFooter>
-      </Card>
+        </section>
+        
+      </article>
     </>
   );
 };

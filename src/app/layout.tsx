@@ -24,7 +24,7 @@ export default function RootLayout({
           <main className=' flex  h-[100dvh] max-w-[1000px]  mx-auto    '>
             <Sidebar />
 
-            <div className=' flex-1 h-full flex  flex-col   sm:p-4 px-4 py-6 border-r  '>
+            <div className=' flex-1 h-full flex  flex-col   sm:p-4  border-r  '>
               {children}
               <Toaster />
             </div>
