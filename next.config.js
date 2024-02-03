@@ -4,6 +4,10 @@ module.exports = {
       {
         hostname: 'azltcttryjnpigkb.public.blob.vercel-storage.com',
       },
+      {
+        hostname: 'res.cloudinary.com',
+      },
     ],
   },
+
 };

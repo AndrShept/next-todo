@@ -26,12 +26,12 @@ export const TodoItem = ({ item }: { item: TodoProps }) => {
           className={cn(
             'p-3 gap-2 flex   border cursor-pointer rounded-md hover:bg-secondary/60 transition',
             {
-              'bg-green-400 hover:bg-green-500/80 border-green-400 text-white':
+              'bg-green-600/20 text-slate-950  border-green-600 hover:bg-green-600/40 dark:text-white':
                 item.isCompleted,
             }
           )}
         >
-          <p className='break-all flex-1 '>{item.content}</p>
+          <p className='break-all flex-1  '>{item.content}</p>
 
           <div className='flex text-muted-foreground space-x-1  '>
             <Button

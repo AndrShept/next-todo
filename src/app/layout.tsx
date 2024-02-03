@@ -4,6 +4,9 @@ import './globals.css';
 import { Sidebar } from '@/components/Sidebar';
 import QueryProvider from '@/components/QueryProdvider';
 import { Toaster } from '@/components/ui/sonner';
+import { Spotlight } from '@/components/ui/Spotlight';
+import { ThemeProvider } from '@/components/provider/theme-provider';
+import { ModalProvider } from '@/components/provider/ModalProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,17 +21,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' suppressHydrationWarning={true}>
+    <html lang='en' suppressHydrationWarning>
       <body className={`${inter.className} `}>
         <QueryProvider>
-          <main className=' flex  h-[100dvh] max-w-[1000px]  mx-auto    '>
-            <Sidebar />
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='dark'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className=' flex   max-w-[1000px]  mx-auto antialiased dark:bg-grid-white/[0.02] bg-grid-black/[0.02]   '>
+              <Sidebar />
 
-            <div className=' flex-1 h-full flex  flex-col   sm:p-4  border-r  '>
-              {children}
-              <Toaster />
-            </div>
-          </main>
+              <section className=' flex-1 h-full flex  flex-col   sm:p-5 p-3  border-r  '>
+
+
+                {children}
+                <ModalProvider />
+                <Toaster />
+              </section>
+            </main>
+          </ThemeProvider>
         </QueryProvider>
       </body>
     </html>

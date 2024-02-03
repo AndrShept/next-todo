@@ -5,7 +5,7 @@ interface ITodo {
   title: string;
 }
 
-export const todoServices = {
+export const TodoServices = {
   getTodos: async (): Promise<Todo[]> => {
     const res = await fetch('/api/todo', {
       method: 'GET',

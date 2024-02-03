@@ -1,6 +1,6 @@
 import { PutBlobResult } from '@vercel/blob';
 import { startTransition, useTransition } from 'react';
-import { todoServices } from '../services/todo-services';
+import { TodoServices } from '../services/todo-services';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
@@ -10,23 +10,32 @@ export const useImageUrl = () => {
     event: React.ChangeEvent<HTMLInputElement>,
     onChange: (url: string) => void
   ) => {
-    if (
-      !event.target ||
-      !event.target.files ||
-      event.target.files.length === 0
-    ) {
+    if (!event.target.files) {
+      return;
+    }
+    const file = event.target.files[0];
+    if (!file) {
       throw new Error('No file selected');
     }
 
-    const file = event.target.files[0];
-    startTransition(async () => {
-      const response = await fetch(`/api/avatar/upload?filename=${file.name}`, {
-        method: 'POST',
-        body: file,
-      });
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append(
+      'upload_preset',
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+    );
 
-      const newBlob = (await response.json()) as PutBlobResult;
-      onChange(newBlob.url);
+    startTransition(async () => {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      onChange(data.secure_url);
     });
   };
   return {
@@ -38,20 +47,20 @@ export const useImageUrl = () => {
 export const useGetTodos = () => {
   return useQuery({
     queryKey: ['todos'],
-    queryFn: todoServices.getTodos,
+    queryFn: TodoServices.getTodos,
   });
 };
 
 export const useCreateTodos = () => {
-
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ['addTodos'],
-    mutationFn: todoServices.createTodo,
+    mutationFn: TodoServices.createTodo,
     onSettled: (data) => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
       toast(`Todo has been created ${data?.created_at}`, {});
     },
+
 
     // onSuccess: () => {
     //   // Invalidate and refetch
@@ -64,7 +73,7 @@ export const useDeleteTodos = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ['deleteTodos'],
-    mutationFn: todoServices.deleteTodo,
+    mutationFn: TodoServices.deleteTodo,
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
     },

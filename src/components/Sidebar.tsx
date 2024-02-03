@@ -3,10 +3,11 @@ import { cn } from '@/lib/utils';
 import { ChevronsDown, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { ElementRef, useRef, useState } from 'react';
+import React, { ElementRef, useLayoutEffect, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { useMediaQuery } from 'usehooks-ts';
 import { useOnClickOutside } from 'usehooks-ts';
+import { ThemeButton } from './ThemeButton';
 const sideBarLink = [
   {
     id: '1',
@@ -17,6 +18,11 @@ const sideBarLink = [
     id: '2',
     name: 'Test',
     href: '/test',
+  },
+  {
+    id: '3',
+    name: 'Posts',
+    href: '/posts',
   },
 ];
 
@@ -61,18 +67,24 @@ export const Sidebar = () => {
       collapse();
     }
   };
-
   useOnClickOutside(sidebarRef, handleClickOutside);
+  useLayoutEffect(() => {
+    if (isMobile) {
+      collapse();
+    } else {
+      collapseReset();
+    }
+  }, [isMobile]);
   return (
     <>
       <section
         ref={sidebarRef}
         className={cn(
-          ' flex flex-col gap-y-1 border  w-[200px] sm:p-4 p-2  group ',
+          ' flex flex-col gap-y-1 sticky top-0 h-full   w-[200px] sm:p-4 p-2  group ',
           {
             'transition-all ease-in-out duration-300 ': isCollapsed,
-            'sticky': !isMobile,
-            'absolute z-20 bg-secondary inset-y-0': isMobile,
+            
+            'fixed z-20 bg-secondary inset-y-0': isMobile,
           }
         )}
       >
@@ -94,6 +106,9 @@ export const Sidebar = () => {
             </Link>
           ))}
         </ul>
+        <div className='mt-10'>
+          <ThemeButton />
+        </div>
         {!isResetting && (
           <button
             onClick={collapse}

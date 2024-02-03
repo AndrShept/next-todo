@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { FormTodos } from './FormTodos';
-import { Todos } from './Todos';
+import { FormTodos } from './_components/FormTodos';
+import { Todos } from './_components/Todos';
 
 const TestPage = async () => {
   return (
